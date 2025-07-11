@@ -1,0 +1,199 @@
+import time
+import random
+
+
+oyuncu1 = {"isim":"adam","sağlık":100,"güç":10}
+Canavar1 = {"isim":"Gulyabani ","sağlık":150,"güç":10}
+Canavar2 = {"isim":"zombi ","sağlık":50,"güç":5}
+Canavar3 = {"isim":"dev kusan köpek ","sağlık":1000,"güç":15}
+
+odalar = {
+    'Başlangıç': {'odalar': ['1'], 'öğeler':[]},
+    '1': {'odalar': ['Başlangıç', '2', '3'], 'öğeler':[]},
+    '2': {'odalar':['1'], 'öğeler':['anahtar']},
+    '3': {'odalar': ['1', '4'], 'öğeler':[]},
+    '4': {'odalar': ['3', '5'], 'öğeler':[]},
+    '5': {'odalar': ['4','Çıkış'], 'öğeler':[]},
+    'Çıkış': {'odalar': ['-1','5'], 'öğeler':[""]},
+    '-1': {'odalar': ['-2','Çıkış'], 'öğeler':["not"]},
+    '-2': {'odalar': ['-1','-3'], 'öğeler':[""]},
+    '-3': {'odalar': ['-2','-4',"demir oda"], 'öğeler':[""]},
+    'demir oda': {'odalar': ['-2',], 'öğeler':["not2","balta"]},
+    '-4': {'odalar': ['-3','-5'], 'öğeler':["gulyabani"]},
+    '-5': {'odalar': ['-4','-6'], 'öğeler':[]},
+    '-5': {'odalar': ['-4','-6'], 'öğeler':["anahtar2"]},
+    '-6': {'odalar': ['-5','-7',"kamera odası"], 'öğeler':[]},
+    'kamera odası': {'odalar': ['-5','sadece personel'], 'öğeler':["harita"]},
+    'sadece personel': {'odalar': ['kamera odası'], 'öğeler':["Med kit"]},
+    '-7': {'odalar': ['-6','-8'], 'öğeler':[]},
+    '-8': {'odalar': ['-9','-7'], 'öğeler':[]},
+    '-9': {'odalar': ['-8','-10'], 'öğeler':[]},
+    '-10': {'odalar': ['-11','-9'], 'öğeler':["zombi"]},
+    '-11': {'odalar': ['-12','-10'], 'öğeler':[]},
+    '-12': {'odalar': ['-13','-11'], 'öğeler':[]},
+    '-13': {'odalar': ['-14','-12'], 'öğeler':["not3"]},
+    '-14': {'odalar': ['-13','-15'], 'öğeler':[]},
+    '-15': {'odalar': ['-16','-14'], 'öğeler':[]},
+    '-16': {'odalar': ['-17','-15'], 'öğeler':["büyü asası"]},
+    '-17': {'odalar': ['-18','-16'], 'öğeler':[]},
+    '-18': {'odalar': ['-17','-19'], 'öğeler':[]},
+    '-19': {'odalar': ['-18','CÜCE ADAM ODASI:GİRMEYİN!!!>=C',"-20"], 'öğeler':[]},
+    'CÜCE ADAM ODASI:GİRMEYİN!!!>=C': {'odalar': ['-18',"tuvalet"], 'öğeler':[]},
+    'tuvalet': {'odalar': ['CÜCE ADAM ODASI:GİRMEYİN!!!>=C',], 'öğeler':[]},
+    '-20': {'odalar': ['-boss arenası girmeden önce med kitle canını fulle yada daha artır','-19'], 'öğeler':["dev kusan köpek"]},
+    
+    
+    
+    
+    
+    
+    
+}
+Not3 = False
+Anahtar2 = False
+Balta = False
+Not2 = False
+Not = False
+oda = "Başlangıç"
+anahtar = False
+Med_kit = False
+
+while True:
+    print("=====================================================")
+    print(oda,"odasındasınız")
+    
+    for giliecekoda in odalar[oda]["odalar"]:
+        print(giliecekoda,"odalarına gidebilirsiniz")
+    time.sleep(2)
+    yeni_oda = input('Hangi odaya gitmek istersiniz?')
+    if yeni_oda not in odalar[oda]["odalar"]:
+        print("Böyle bir oda bulunmuyor.")
+        time.sleep(2)
+        continue
+    if "anahtar" in odalar[oda]["öğeler"]:
+        anahtar = True
+        print("anahtarı buldun")
+
+        
+    
+    if yeni_oda == "çıkış" and not anahtar:
+        print("anahtarın yok")
+        time.sleep(2)
+        continue
+    if yeni_oda == "çıkış":
+        print("çıktın")
+    if "anahtar2" in odalar[oda]["öğeler"]:
+        Anahtar2 = True
+        print("anahtarı buldun")
+        time.sleep(2)
+    if "med kit" in odalar[oda]["odalar"]:
+        Med_kit = True
+    if "not3" in odalar[oda]["odalar"]:
+        print("bir not daha buldun bu not2nin devamı:Dev kusan bir köpek kendisi çok güçlü.Kusmuğu asitendir.Onu yenemedim.son gücümü bunu yazarak.Notlar bitti fulll notu okudunuz.")
+        print("bir med kit buldun istediğn zaman med kit kulanabilirsin.yapman gereken şey medkit yazman")
+    if yeni_oda == "kamera odası" and not Anahtar2:
+        print("bu oda kilitli")
+        continue
+    if yeni_oda == "kamera odası":
+        print("bu oda biraz garip.içinde birazcık huzursuzluk var")
+    if "büyü asası" in odalar[oda]["odalar"]:
+        print("büyü asası ultra güçlü asa sana 100 saldırı hasarı verir")
+        oyuncu1["güç"] = oyuncu1["güç"] + 100
+    if "harita" in odalar[oda]["öğeler"]:
+        print("a")
+    if "not" in odalar[oda]["öğeler"]:
+        Not = True
+        print("Bir not buldun şöyle diyor:Sevgili günlük.Uyandığımda ne kendimi ne de nerede olduğumu biliyordum.Olduğum yer tam olarak sarı ve huzursuz verici bir gıcırtı sesi olan ve daha çok bir labirente benzeyen bir yer. ")
+    if "balta" in odalar[oda]["öğeler"]:
+        print("balta buldun bu da sana totalde 25 can götürmeni sağlar ve çivilenmiş kapıları kırmanı")
+        oyuncu1["güç"] = oyuncu1["güç"] + 25
+        odalar[oda]["öğeler"].remove("balta")
+        print("Bir not daha buldun şöyle diyor:Sevgili günlük.Burası güvenli bir yer değil tıpkı düşündüğüm gibi.Etraftaki garip yaratıklar,bubi tuzakları ve neden bilmiyorum ama dev kusan ...")
+    if "gulyabani" in odalar[oda]["öğeler"]:
+        print("bir gulyabani var onunla savaşman gerek!!")
+        while oyuncu1["sağlık"] > 0 and Canavar1["sağlık"] > 0:
+            print("sıra sende hadiii!!")
+            hareket = input("hücum yap!!")
+            if hareket == "hücum":
+                k1 = random.randint(1,10)
+                if k1 == 1:
+                    Canavar1["sağlık"] = Canavar1["sağlık"] - oyuncu1["güç"]
+                    print(oyuncu1["isim"],Canavar1["isim"],"saldırdın!!")
+                    print("sağlık durumu",oyuncu1["sağlık"],Canavar1["sağlık"])
+                else:
+                    Canavar1["sağlık"] = Canavar1["sağlık"] - oyuncu1["güç"]
+                    print(oyuncu1["isim"],Canavar1["isim"],"Saldırdın!!!")
+                    print("sağlık durumu",oyuncu1["sağlık"],Canavar1["sağlık"])
+                time.sleep(1)    
+            print("sıra Gulyabani")
+            hareket2 = oyuncu1["sağlık"] = oyuncu1["sağlık"] - 20
+            print(oyuncu1["isim"],Canavar1["isim"],"sana saldırıyor!!")
+            print("sağlık durumu",oyuncu1["sağlık"],Canavar1["sağlık"])
+            
+            
+            if Canavar1["sağlık"] == 0:
+                print("Gulyabaniyi öldürdün hadi devam")
+                odalar[oda]["odalar"].remove("med kit")
+                
+            if oyuncu1["sağlık"] == 0:
+                print("öldünnnnnn hayırrrrrrrrrrrrrrrrrrrrrr !!!Ulaşılan seviye",oda)
+                break
+        if oyuncu1["sağlık"] == 0:
+            print("öldünnnnnn hayırrrrrrrrrrrrrrrrrrrrrr !!!Ulaşılan seviye",oda)
+            break
+        if yeni_oda == "CÜCE ADAM ODASI:GİRMEYİN!!!>=C":
+            sohbet = input("cüce:ne istiyon be!!!!!!.Söylenebilecekler:sanane,tuveltim geldi,")
+            if sohbet == "sanane":
+                print("cüce:yoksa mısırlarımımı çalıcaksın!!.sen:mısırmı.cüce:Görürsün sen.Cüce pompalı tüfek çıkarır ve seni öldürür")
+                break
+            if sohbet == "tuvaletim geldi":
+                print("şurada tuvalet var.bidaaadaa gelme!!!!")
+                continue
+        if yeni_oda == "tuvaltet":
+            print("tuvalet çok temizdir çok rahatladın uzun yolculuk boyunca büyüğünü bekletmek çok zordu.")
+            continue
+        if "zombi" in odalar[oda]["öğeler"]:
+            print("bir zombi var onunla savaşman gerek!!")
+            while oyuncu1["sağlık"] > 0 and Canavar2["sağlık"] > 0:
+                print("sıra sende hadiii!!")
+                hareket = input("hücum yap!!")
+                if hareket == "hücum":
+                    k1 = random.randint(1,10)
+                    if k1 == 1:
+                        Canavar2["sağlık"] = Canavar2["sağlık"] - oyuncu1["güç"]
+                        print(oyuncu1["isim"],Canavar2["isim"],"saldırdın!!")
+                        print("sağlık durumu",oyuncu1["sağlık"],Canavar2["sağlık"])
+                    else:
+                        Canavar2["sağlık"] = Canavar2["sağlık"] - oyuncu1["güç"]
+                        print(oyuncu1["isim"],Canavar2["isim"],"Saldırdın!!!")
+                        print("sağlık durumu",oyuncu1["sağlık"],Canavar2["sağlık"])
+                    time.sleep(1)    
+                print("sıra zombi")
+                hareket2 = oyuncu1["sağlık"] = oyuncu1["sağlık"] - 20
+                print(oyuncu1["isim"],Canavar2["isim"],"sana saldırıyor!!")
+                print("sağlık durumu",oyuncu1["sağlık"],canavar2["sağlık"])
+                
+                
+        if "dev kusan köpek" in odalar[oda]["öğeler"]:
+            print("artık bu son kusan köpeği yok edince beta sürümünü bitirsin")
+            while oyuncu1["sağlık"] > 0 and Canavar3["sağlık"] > 0:
+                print("sıra sende hadiii!!")
+                hareket = input("hücum yap!!")
+                if hareket == "hücum":
+                    k1 = random.randint(1,10)
+                    if k1 == 1:
+                        Canavar3["sağlık"] = Canavar3["sağlık"] - oyuncu1["güç"]
+                        print(oyuncu1["isim"],Canavar3["isim"],"saldırdın!!")
+                        print("sağlık durumu",oyuncu1["sağlık"],Canavar3["sağlık"])
+                    else:
+                        Canavar3["sağlık"] = Canavar3["sağlık"] - oyuncu1["güç"]
+                        print(oyuncu1["isim"],Canavar3["isim"],"Saldırdın!!!")
+                        print("sağlık durumu",oyuncu1["sağlık"],Canavar3["sağlık"])
+                    time.sleep(1)    
+                print("sıra zombi")
+                hareket2 = oyuncu1["sağlık"] = oyuncu1["sağlık"] - 20
+                print(oyuncu1["isim"],Canavar3["isim"],"sana saldırıyor!!")
+                print("sağlık durumu",oyuncu1["sağlık"],canavar3["sağlık"])
+        
+    oda = yeni_oda
+        
